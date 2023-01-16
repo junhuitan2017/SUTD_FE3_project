@@ -1,14 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import './Cell.css';
 
 function Cell(props){
-    const { cellIndex, isOn, toggleLight } = props;
-
-    function handleToggleLight() {
-        toggleLight(cellIndex);
-        
-    }
-
+    const { isOn, handleToggleLight } = props;
     return (
         <button 
             className={isOn?"Cell-on":"Cell-off"} 
@@ -17,4 +11,5 @@ function Cell(props){
     );
 }
 
-export default Cell;
+// ? Memoise Cell so they dont all re-render when a cell is clicked
+export default memo(Cell);

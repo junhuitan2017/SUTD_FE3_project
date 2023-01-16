@@ -13,9 +13,7 @@
 }
 
 .App-orange {
-  
   color: orange;
-
   animation: flicker 1.5s infinite alternate; 
 }
 
