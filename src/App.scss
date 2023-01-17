@@ -1,0 +1,118 @@
+$size: 10;
+
+:export {
+    size: $size
+}
+
+.App {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App-h1 {
+    font-family: 'Bungee Outline', cursive;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+}
+
+.App-orange {
+    color: orange;
+    animation: flicker 1.5s infinite alternate;
+}
+
+.App-blue {
+    color: rgb(18, 231, 231);
+    text-shadow:
+        0 0 42px rgb(18, 231, 231),
+        0 0 82px rgb(18, 231, 231),
+        0 0 92px rgb(18, 231, 231),
+        0 0 102px rgb(18, 231, 231),
+        0 0 151px rgb(18, 231, 231);
+}
+
+@keyframes flicker {
+
+    0%,
+    18%,
+    22%,
+    25%,
+    53%,
+    57%,
+    100% {
+        text-shadow:
+            0 0 42px orange,
+            0 0 82px orange,
+            0 0 92px orange,
+            0 0 102px orange,
+            0 0 151px orange;
+    }
+
+    20%,
+    24%,
+    55% {
+        text-shadow: none;
+    }
+}
+
+.Board {
+    max-width: 90%;
+    height: 70vh;
+    display: grid;
+    grid-template-columns: repeat($size, 1fr);
+    border-radius: 10px;
+    padding: 2px;
+
+    box-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff;
+
+    overflow: auto;
+    /* hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* hide scrollbar for chrome, safari and opera */
+.Board::-webkit-scrollbar {
+    display: none;
+}
+
+.Board-hasWon {
+    color: white;
+    font-family: 'Bungee Outline', cursive;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+    padding: 0 20px;
+
+    text-shadow:
+        0 0 20px white,
+        0 0 30px white,
+        0 0 40px white;
+}
+
+.Cell-on {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: rgb(18, 231, 231);
+    border: none;
+    margin: 20px;
+
+    box-shadow:
+        0 0 22px rgb(18, 231, 231),
+        0 0 42px rgb(18, 231, 231)
+}
+
+.Cell-off {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    border: none;
+    margin: 20px;
+    background-color: rgb(55, 55, 55);
+}

@@ -1,12 +1,11 @@
 
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
-import "./App.css";
-import './components/Board.css';
+import vars from "./App.scss";
 import Cell from "./components/Cell";
 
 // ? Use const value to avoid typos
-const SIZE = 5;
+const SIZE = vars.size;
 const INITIAL_LIGHT_PROB = 0.25;
 
 // Initialise a square matrix of random boolean based on input probability
@@ -39,23 +38,23 @@ function App() {
 
         // If condition to handle corner lights
         currGrid[row][col] = !currGrid[row][col];         // Toggle current cell
-        if (col < SIZE) currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
+        if (col < SIZE - 1) currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
         if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1];    // Toggle Left
-        if (row < SIZE) currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
-        if (row > 0  ) currGrid[row - 1][col] = !currGrid[row - 1][col];  // Toggle Up
+        if (row < SIZE - 1) currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
+        if (row > 0) currGrid[row - 1][col] = !currGrid[row - 1][col];  // Toggle Up
 
         setGrid(currGrid);
     }, []);
 
     const gridDisplay = grid.map((row, rowIndex) => (
-        <div key={rowIndex} className="Board-row">
-            {row.map((col, colIndex) => (
+        // <div key={rowIndex} className="Board-row">
+            row.map((col, colIndex) => (
                 <Cell
                     key={`${rowIndex}_${colIndex}`}
                     isOn={col}
                     handleToggleLight={() => toggleLight(rowIndex, colIndex)} />
-            ))}
-        </div>
+            ))
+        // </div>
     ));
 
     return (

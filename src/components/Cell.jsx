@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import './Cell.css';
 
 function Cell(props){
     const { isOn, handleToggleLight } = props;
