@@ -6,7 +6,7 @@ import './components/Board.css';
 import Cell from "./components/Cell";
 
 // ? Use const value to avoid typos
-const SIZE = 500;
+const SIZE = 5;
 const INITIAL_LIGHT_PROB = 0.25;
 
 // Initialise a square matrix of random boolean based on input probability
@@ -37,11 +37,12 @@ function App() {
     const toggleLight = useCallback((row, col) => {
         let currGrid = [...grid]; // ? Clone a copy to avoid mutation
 
+        // If condition to handle corner lights
         currGrid[row][col] = !currGrid[row][col];         // Toggle current cell
-        currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
-        currGrid[row][col - 1] = !currGrid[row][col - 1]; // Toggle Left
-        currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
-        currGrid[row - 1][col] = !currGrid[row - 1][col]; // Toggle Up
+        if (col < SIZE) currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
+        if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1];    // Toggle Left
+        if (row < SIZE) currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
+        if (row > 0  ) currGrid[row - 1][col] = !currGrid[row - 1][col];  // Toggle Up
 
         setGrid(currGrid);
     }, []);
@@ -55,7 +56,7 @@ function App() {
                     handleToggleLight={() => toggleLight(rowIndex, colIndex)} />
             ))}
         </div>
-    ))
+    ));
 
     return (
         <main className="App">
