@@ -1,6 +1,13 @@
-import React, { memo } from "react";
+import { memo, ReactElement } from "react";
 
-function Cell({ isOn, row, col, handleToggleLight }) {
+type CellProps = {
+    isOn: boolean;
+    row: number;
+    col: number;
+    handleToggleLight: (row: number, col: number) => void;
+}
+
+const Cell = ({ isOn, row, col, handleToggleLight }: CellProps): ReactElement => {
     return (
         <button
             className={"Cell " + (isOn ? "Cell-on" : "Cell-off")}

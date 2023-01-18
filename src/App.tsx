@@ -1,26 +1,35 @@
 
-import { useEffect, useState, useTransition, useCallback } from "react";
-import vars from "./App.scss";
+import { useEffect, useState, useTransition, useCallback, ReactNode, ReactElement } from "react";
+import * as vars from "./styles/App.scss";
 import Cell from "./components/Cell";
 
 // ? Use const value to avoid typos
+const SIZE = 5;
 const INITIAL_LIGHT_PROB = 0.25;
 
 // ? Took out everything from Board.jsx - unnecessary nesting
-function App() {
-    const [grid, setGrid] = useState([]);
-    const [hasWon, setHasWon] = useState(false);
+const App = (): ReactElement => {
+    const [grid, setGrid] = useState<boolean[][]>([]);
+    const [hasWon, setHasWon] = useState<boolean>(false);
 
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
+        // Set to be use in CSS
+        // TODO: Make it a state in future
+        document.documentElement.style.setProperty("--size", SIZE.toString());
+    }, []);
+
+    useEffect(() => {
+        console.log(vars)
+        console.log(SIZE)
         // Switch hasWon back to false to restart game
         if (!hasWon) {
             // Initialise a square matrix of random boolean based on input probability
             // ? To generate the grid separately
             startTransition(() => {
-                const newGrid = Array.from({ length: vars.size }).map(
-                    () => Array.from({ length: vars.size }).map(
+                const newGrid = Array.from({ length: SIZE }).map(
+                    () => Array.from({ length: SIZE }).map(
                         () => Math.random() < INITIAL_LIGHT_PROB
                     )
                 );
@@ -41,12 +50,12 @@ function App() {
     // To toggle a light and its neighbors
     // ? Set grid state once instead of setting for every cell toggled
     // ? Use useCallback so it doesnt re-render, causing cell to re-render
-    const toggleLight = useCallback((row, col) => {
+    const toggleLight = useCallback((row: number, col: number) => {
         setGrid(prevGrid => {
             // ? Clone a copy to avoid mutation
             // ! [...prevGrid] only did a shallow copy
             let currGrid = prevGrid.map((arr) => arr.slice());
-            let gridSize = vars.size; // Taken from App.scss;
+            let gridSize = SIZE; // Taken from App.scss;
 
             // If condition to handle corner lights
             currGrid[row][col] = !currGrid[row][col];                             // Toggle current cell
@@ -59,7 +68,7 @@ function App() {
         });
     }, [setGrid]);
 
-    const renderDisplay = () => {
+    const renderDisplay = (): ReactNode => {
         if (isPending) {
             return <div className="Board-word">Messing up the lights~</div>;
         } else if (hasWon) {
