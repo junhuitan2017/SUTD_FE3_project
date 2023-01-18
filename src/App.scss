@@ -1,5 +1,18 @@
+// Game config
+// TODO: React to change this according to state in future
+$size: 5;
+
+:export {
+    size: $size
+}
+
 // General styles
-$fontFamily: 'Bungee Outline', cursive;
+@mixin app-font {
+    font-family: 'Bungee Outline', cursive;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+}
 
 // Colors
 // TODO: Implement themes in future
@@ -17,14 +30,6 @@ $mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
 $black: rgb(55, 55, 55);
 $white: white;
 
-// Game config
-// TODO: React to change this according to state in future
-$size: 10;
-
-:export {
-    size: $size
-}
-
 .App {
     text-align: center;
     display: flex;
@@ -33,10 +38,7 @@ $size: 10;
 }
 
 .App-h1 {
-    font-family: $fontFamily;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-    margin-bottom: 0;
+    @include app-font;
 }
 
 .App-orange {
@@ -69,7 +71,7 @@ $size: 10;
 
 .Board {
     max-width: 90%;
-    height: 70vh;
+    max-height: 70vh;
     display: grid;
     grid-template-columns: repeat($size, 1fr);
     border-radius: 10px;
@@ -90,18 +92,18 @@ $size: 10;
     display: none;
 }
 
-.Board-hasWon {
+.Board-word {
     color: $white;
-    font-family: $fontFamily;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-    margin-bottom: 0;
-    padding: 0 20px;
+    @include app-font;
 
     text-shadow:
         0 0 20px $white,
         0 0 30px $white,
         0 0 40px $white;
+}
+
+.Board-load {
+    margin: auto;
 }
 
 .Cell {
