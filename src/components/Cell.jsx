@@ -1,10 +1,9 @@
 import React, { memo } from "react";
 
-function Cell(props){
-    const { isOn, handleToggleLight } = props;
+function Cell({ isOn, handleToggleLight }) {
     return (
-        <button 
-            className={isOn?"Cell-on":"Cell-off"} 
+        <button
+            className={"Cell " + (isOn ? "Cell-on" : "Cell-off")}
             onClick={handleToggleLight}
         ></button>
     );

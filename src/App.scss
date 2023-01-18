@@ -1,3 +1,24 @@
+// General styles
+$fontFamily: 'Bungee Outline', cursive;
+
+// Colors
+// TODO: Implement themes in future
+// ? Idea: Color changes when "Out" is clicked
+$subColor: orange;             // Just the color of "Light"
+$mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
+@mixin textShadow($color) {
+    text-shadow:
+        0 0 42px $color,
+        0 0 82px $color,
+        0 0 92px $color,
+        0 0 102px $color,
+        0 0 151px $color;
+}
+$black: rgb(55, 55, 55);
+$white: white;
+
+// Game config
+// TODO: React to change this according to state in future
 $size: 10;
 
 :export {
@@ -12,29 +33,23 @@ $size: 10;
 }
 
 .App-h1 {
-    font-family: 'Bungee Outline', cursive;
+    font-family: $fontFamily;
     font-size: 2.5rem;
     letter-spacing: 2px;
     margin-bottom: 0;
 }
 
 .App-orange {
-    color: orange;
+    color: $subColor;
     animation: flicker 1.5s infinite alternate;
 }
 
 .App-blue {
-    color: rgb(18, 231, 231);
-    text-shadow:
-        0 0 42px rgb(18, 231, 231),
-        0 0 82px rgb(18, 231, 231),
-        0 0 92px rgb(18, 231, 231),
-        0 0 102px rgb(18, 231, 231),
-        0 0 151px rgb(18, 231, 231);
+    color: $mainColor;
+    @include textShadow($mainColor);
 }
 
 @keyframes flicker {
-
     0%,
     18%,
     22%,
@@ -42,12 +57,7 @@ $size: 10;
     53%,
     57%,
     100% {
-        text-shadow:
-            0 0 42px orange,
-            0 0 82px orange,
-            0 0 92px orange,
-            0 0 102px orange,
-            0 0 151px orange;
+        @include textShadow($subColor);
     }
 
     20%,
@@ -66,8 +76,8 @@ $size: 10;
     padding: 2px;
 
     box-shadow:
-        0 0 7px #fff,
-        0 0 10px #fff;
+        0 0 7px $white,
+        0 0 10px $white;
 
     overflow: auto;
     /* hide scrollbar for IE, Edge and Firefox */
@@ -81,38 +91,34 @@ $size: 10;
 }
 
 .Board-hasWon {
-    color: white;
-    font-family: 'Bungee Outline', cursive;
+    color: $white;
+    font-family: $fontFamily;
     font-size: 2.5rem;
     letter-spacing: 2px;
     margin-bottom: 0;
     padding: 0 20px;
 
     text-shadow:
-        0 0 20px white,
-        0 0 30px white,
-        0 0 40px white;
+        0 0 20px $white,
+        0 0 30px $white,
+        0 0 40px $white;
+}
+
+.Cell {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    margin: 20px;
 }
 
 .Cell-on {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: rgb(18, 231, 231);
-    border: none;
-    margin: 20px;
-
+    background-color: $mainColor;
     box-shadow:
-        0 0 22px rgb(18, 231, 231),
-        0 0 42px rgb(18, 231, 231)
+        0 0 22px $mainColor,
+        0 0 42px $mainColor;
 }
 
 .Cell-off {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-
-    border: none;
-    margin: 20px;
-    background-color: rgb(55, 55, 55);
+    background-color: $black;
 }
