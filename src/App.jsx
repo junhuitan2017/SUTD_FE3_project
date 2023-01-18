@@ -37,11 +37,11 @@ function App() {
         let currGrid = [...grid]; // ? Clone a copy to avoid mutation
 
         // If condition to handle corner lights
-        currGrid[row][col] = !currGrid[row][col];         // Toggle current cell
+        currGrid[row][col] = !currGrid[row][col];                             // Toggle current cell
         if (col < SIZE - 1) currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
-        if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1];    // Toggle Left
+        if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1];        // Toggle Left
         if (row < SIZE - 1) currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
-        if (row > 0) currGrid[row - 1][col] = !currGrid[row - 1][col];  // Toggle Up
+        if (row > 0) currGrid[row - 1][col] = !currGrid[row - 1][col];        // Toggle Up
 
         setGrid(currGrid);
     }, []);
@@ -52,7 +52,9 @@ function App() {
                 <Cell
                     key={`${rowIndex}_${colIndex}`}
                     isOn={col}
-                    handleToggleLight={() => toggleLight(rowIndex, colIndex)} />
+                    row={rowIndex}
+                    col={colIndex}
+                    handleToggleLight={toggleLight} />
             ))
         // </div>
     ));
