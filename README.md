@@ -108,7 +108,7 @@ Your app is ready to be deployed!
 ### `npm run deploy`
 
 Deploys the build to github pages
-Your app will be deployed with this url format: [https://<Your github username>.github.io/<Your repo name>/](https://junhuitan2017.github.io/SUTD_FE3_project/)
+Your app will be deployed with this url format: [https://[Your github username].github.io/[Your repo name]/](https://junhuitan2017.github.io/SUTD_FE3_project/)
 **Note: This URL is to be specified in [package.json](./package.json)
 
 ### Github action
