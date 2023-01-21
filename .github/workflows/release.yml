@@ -17,4 +17,4 @@ jobs:
       - name: Release a new version
         run: npx semantic-release --branches main
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
