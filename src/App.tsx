@@ -75,7 +75,7 @@ const App = (): ReactElement => {
             return <div className="Board-word">Congratulations!</div>;
         }
         return (
-            <section className="Board">
+            <section data-testid="board" className="Board">
                 {grid.map((row, rowIndex) => (
                     row.map((col, colIndex) => (
                         <Cell
@@ -92,7 +92,7 @@ const App = (): ReactElement => {
 
     return (
         <main className="App">
-            <h1 className="App-h1"><span className="App-orange">LIGHTS</span>  <span className="App-blue">OUT</span></h1>
+            <h1 data-testid="title" className="App-h1"><span className="App-orange">LIGHTS</span> <span className="App-blue">OUT</span></h1>
             {renderDisplay()}
         </main>
     );
