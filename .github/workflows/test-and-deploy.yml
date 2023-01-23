@@ -27,6 +27,12 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Run ESLint
+        run: npm run lint:scripts
+
+      - name: Run Stylelint
+        run: npm run lint:styles
         
       - name: Run Tests
         run: npm run test

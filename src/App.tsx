@@ -1,6 +1,5 @@
 
 import { useEffect, useState, useTransition, useCallback, ReactNode, ReactElement } from "react";
-import * as vars from "./styles/App.scss";
 import Cell from "./components/Cell";
 
 // ? Use const value to avoid typos
@@ -21,8 +20,6 @@ const App = (): ReactElement => {
     }, []);
 
     useEffect(() => {
-        console.log(vars)
-        console.log(SIZE)
         // Switch hasWon back to false to restart game
         if (!hasWon) {
             // Initialise a square matrix of random boolean based on input probability
@@ -41,7 +38,7 @@ const App = (): ReactElement => {
     // ? Check for winning condition only when any cell is clicked
     useEffect(() => {
         // Win condition: All lights are off
-        let checkWin = grid.every(row => row.every(cell => !cell));
+        const checkWin = grid.every(row => row.every(cell => !cell));
         if (checkWin !== hasWon) {
             setHasWon(checkWin);
         }
@@ -54,8 +51,8 @@ const App = (): ReactElement => {
         setGrid(prevGrid => {
             // ? Clone a copy to avoid mutation
             // ! [...prevGrid] only did a shallow copy
-            let currGrid = prevGrid.map((arr) => arr.slice());
-            let gridSize = SIZE; // Taken from App.scss;
+            const currGrid = prevGrid.map((arr) => arr.slice());
+            const gridSize = SIZE; // Taken from App.scss;
 
             // If condition to handle corner lights
             currGrid[row][col] = !currGrid[row][col];                             // Toggle current cell
