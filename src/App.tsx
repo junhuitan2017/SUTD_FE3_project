@@ -7,6 +7,7 @@ import {
     ReactElement
 } from "react";
 import Cell from "./components/Cell";
+import "./styles/App.scss"
 
 // ? Use const value to avoid typos
 const SIZE = 5;
