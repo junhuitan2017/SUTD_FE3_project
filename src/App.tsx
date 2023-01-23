@@ -1,5 +1,11 @@
-
-import { useEffect, useState, useTransition, useCallback, ReactNode, ReactElement } from "react";
+import {
+    useEffect,
+    useState,
+    useTransition,
+    useCallback,
+    ReactNode,
+    ReactElement
+} from "react";
 import Cell from "./components/Cell";
 
 // ? Use const value to avoid typos
@@ -25,8 +31,8 @@ const App = (): ReactElement => {
             // Initialise a square matrix of random boolean based on input probability
             // ? To generate the grid separately
             startTransition(() => {
-                const newGrid = Array.from({ length: SIZE }).map(
-                    () => Array.from({ length: SIZE }).map(
+                const newGrid = Array.from({ length: SIZE }).map(() =>
+                    Array.from({ length: SIZE }).map(
                         () => Math.random() < INITIAL_LIGHT_PROB
                     )
                 );
@@ -47,23 +53,28 @@ const App = (): ReactElement => {
     // To toggle a light and its neighbors
     // ? Set grid state once instead of setting for every cell toggled
     // ? Use useCallback so it doesnt re-render, causing cell to re-render
-    const toggleLight = useCallback((row: number, col: number) => {
-        setGrid(prevGrid => {
-            // ? Clone a copy to avoid mutation
-            // ! [...prevGrid] only did a shallow copy
-            const currGrid = prevGrid.map((arr) => arr.slice());
-            const gridSize = SIZE; // Taken from App.scss;
+    const toggleLight = useCallback(
+        (row: number, col: number) => {
+            setGrid(prevGrid => {
+                // ? Clone a copy to avoid mutation
+                // ! [...prevGrid] only did a shallow copy
+                const currGrid = prevGrid.map(arr => arr.slice());
+                const gridSize = SIZE; // Taken from App.scss;
 
-            // If condition to handle corner lights
-            currGrid[row][col] = !currGrid[row][col];                             // Toggle current cell
-            if (col < gridSize - 1) currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
-            if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1];        // Toggle Left
-            if (row < gridSize - 1) currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
-            if (row > 0) currGrid[row - 1][col] = !currGrid[row - 1][col];        // Toggle Up
+                // If condition to handle corner lights
+                currGrid[row][col] = !currGrid[row][col]; // Toggle current cell
+                if (col < gridSize - 1)
+                    currGrid[row][col + 1] = !currGrid[row][col + 1]; // Toggle Right
+                if (col > 0) currGrid[row][col - 1] = !currGrid[row][col - 1]; // Toggle Left
+                if (row < gridSize - 1)
+                    currGrid[row + 1][col] = !currGrid[row + 1][col]; // Toggle Down
+                if (row > 0) currGrid[row - 1][col] = !currGrid[row - 1][col]; // Toggle Up
 
-            return currGrid;
-        });
-    }, [setGrid]);
+                return currGrid;
+            });
+        },
+        [setGrid]
+    );
 
     const renderDisplay = (): ReactNode => {
         if (isPending) {
@@ -73,26 +84,30 @@ const App = (): ReactElement => {
         }
         return (
             <section data-testid="board" className="Board">
-                {grid.map((row, rowIndex) => (
+                {grid.map((row, rowIndex) =>
                     row.map((col, colIndex) => (
                         <Cell
                             key={`${rowIndex}_${colIndex}`}
                             isOn={col}
                             row={rowIndex}
                             col={colIndex}
-                            handleToggleLight={toggleLight} />
+                            handleToggleLight={toggleLight}
+                        />
                     ))
-                ))}
+                )}
             </section>
         );
     };
 
     return (
         <main className="App">
-            <h1 data-testid="title" className="App-h1"><span className="App-orange">LIGHTS</span> <span className="App-blue">OUT</span></h1>
+            <h1 data-testid="title" className="App-h1">
+                <span className="App-orange">LIGHTS</span>{" "}
+                <span className="App-blue">OUT</span>
+            </h1>
             {renderDisplay()}
         </main>
     );
-}
+};
 
 export default App;

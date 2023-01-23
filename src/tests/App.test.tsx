@@ -4,7 +4,7 @@ import App from "../App";
 
 describe("App test", () => {
     beforeEach(() => {
-        render(<App/>);
+        render(<App />);
     });
 
     test("Should display title", () => {
@@ -19,4 +19,4 @@ describe("App test", () => {
         const afterClass = cell?.className;
         expect(beforeClass).not.toEqual(afterClass);
     });
-})
+});
