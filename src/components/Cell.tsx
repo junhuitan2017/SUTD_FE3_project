@@ -15,7 +15,7 @@ const Cell = ({
 }: CellProps): ReactElement => {
     return (
         <button
-            className={"Cell " + (isOn ? "Cell-on" : "Cell-off")}
+            className={"cell " + (isOn ? "cell-on" : "cell-off")}
             onClick={() => handleToggleLight(row, col)}></button>
     );
 };

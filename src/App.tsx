@@ -7,7 +7,7 @@ import {
     ReactElement
 } from "react";
 import Cell from "./components/Cell";
-import "./styles/App.scss"
+import "./styles/App.scss";
 
 // ? Use const value to avoid typos
 const SIZE = 5;
@@ -79,12 +79,12 @@ const App = (): ReactElement => {
 
     const renderDisplay = (): ReactNode => {
         if (isPending) {
-            return <div className="Board-word">Messing up the lights~</div>;
+            return <div className="board-word">Messing up the lights~</div>;
         } else if (hasWon) {
-            return <div className="Board-word">Congratulations!</div>;
+            return <div className="board-word">Congratulations!</div>;
         }
         return (
-            <section data-testid="board" className="Board">
+            <section data-testid="board" className="board">
                 {grid.map((row, rowIndex) =>
                     row.map((col, colIndex) => (
                         <Cell
@@ -101,10 +101,10 @@ const App = (): ReactElement => {
     };
 
     return (
-        <main className="App">
-            <h1 data-testid="title" className="App-h1">
-                <span className="App-orange">LIGHTS</span>{" "}
-                <span className="App-blue">OUT</span>
+        <main className="app">
+            <h1 data-testid="title" className="app-h1">
+                <span className="app-orange">LIGHTS</span>{" "}
+                <span className="app-blue">OUT</span>
             </h1>
             {renderDisplay()}
         </main>

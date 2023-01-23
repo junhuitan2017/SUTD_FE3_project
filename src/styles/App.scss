@@ -1,18 +1,18 @@
 // General styles
 @mixin app-font {
+    margin-bottom: 0;
     font-family: 'Bungee Outline', cursive;
     font-size: 2.5rem;
     letter-spacing: 2px;
-    margin-bottom: 0;
 }
 
 // Colors
 // TODO: Implement themes in future
 // ? Idea: Color changes when "Out" is clicked
-$subColor: orange; // Just the color of "Light"
-$mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
+$sub-color: orange; // Just the color of "Light"
+$main-color: rgb(18 231 231); // Color of "Out" and the lights
 
-@mixin textShadow($color) {
+@mixin text-shadow($color) {
     text-shadow:
         0 0 42px $color,
         0 0 82px $color,
@@ -21,32 +21,31 @@ $mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
         0 0 151px $color;
 }
 
-$black: rgb(55, 55, 55);
+$black: rgb(55 55 55);
 $white: white;
 
-.App {
-    text-align: center;
+.app {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
-.App-h1 {
+.app-h1 {
     @include app-font;
 }
 
-.App-orange {
-    color: $subColor;
+.app-orange {
+    color: $sub-color;
     animation: flicker 1.5s infinite alternate;
 }
 
-.App-blue {
-    color: $mainColor;
-    @include textShadow($mainColor);
+.app-blue {
+    color: $main-color;
+    @include text-shadow($main-color);
 }
 
 @keyframes flicker {
-
     0%,
     18%,
     22%,
@@ -54,7 +53,7 @@ $white: white;
     53%,
     57%,
     100% {
-        @include textShadow($subColor);
+        @include text-shadow($sub-color);
     }
 
     20%,
@@ -64,30 +63,29 @@ $white: white;
     }
 }
 
-.Board {
-    max-width: 90%;
-    max-height: 70vh;
+.board {
     display: grid;
     grid-template-columns: repeat(var(--size), 1fr);
-    border-radius: 10px;
+    max-width: 90%;
+    max-height: 70vh;
     padding: 2px;
-
+    overflow: auto;
+    border-radius: 10px;
     box-shadow:
         0 0 7px $white,
         0 0 10px $white;
 
-    overflow: auto;
     /* hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
 /* hide scrollbar for chrome, safari and opera */
-.Board::-webkit-scrollbar {
+.board::-webkit-scrollbar {
     display: none;
 }
 
-.Board-word {
+.board-word {
     color: $white;
     @include app-font;
 
@@ -97,25 +95,25 @@ $white: white;
         0 0 40px $white;
 }
 
-.Board-load {
+.board-load {
     margin: auto;
 }
 
-.Cell {
+.cell {
     width: 25px;
     height: 25px;
-    border-radius: 50%;
-    border: none;
     margin: 20px;
+    border: none;
+    border-radius: 50%;
 }
 
-.Cell-on {
-    background-color: $mainColor;
+.cell-on {
+    background-color: $main-color;
     box-shadow:
-        0 0 22px $mainColor,
-        0 0 42px $mainColor;
+        0 0 22px $main-color,
+        0 0 42px $main-color;
 }
 
-.Cell-off {
+.cell-off {
     background-color: $black;
 }
