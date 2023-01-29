@@ -6,9 +6,17 @@
     letter-spacing: 2px;
 }
 
+@mixin glow-box {
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow:
+        0 0 7px $white,
+        0 0 10px $white;
+}
+
 // Colors
 // TODO: Implement themes in future
-// ? Idea: Color changes when "Out" is clicked
+// ? Idea: Color changes when "Out" is clicked [✓]
 $sub-color: orange; // Just the color of "Light"
 $main-color: var(--main-color); // Color of "Out" and the lights
 
@@ -73,16 +81,11 @@ $white: white;
     grid-template-columns: repeat(var(--size), 1fr);
     max-width: 90%;
     max-height: 70vh;
-    padding: 2px;
     overflow: auto;
-    border-radius: 10px;
-    box-shadow:
-        0 0 7px $white,
-        0 0 10px $white;
-
     /* hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;
     scrollbar-width: none;
+    @include glow-box;
 }
 
 /* hide scrollbar for chrome, safari and opera */
@@ -121,4 +124,17 @@ $white: white;
 
 .cell-off {
     background-color: $black;
+}
+
+.howto {
+    // Box CSS
+    @include glow-box;
+    max-width: 90%;
+    margin: auto;
+    padding: 10px 20px;
+    color: $white;
+    
+    // Text CSS
+    font-family: 'Bungee Hairline', cursive;
+    letter-spacing: -1px;
 }

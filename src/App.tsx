@@ -8,6 +8,7 @@ import {
     MouseEvent
 } from "react";
 import Cell from "./components/Cell";
+import HowTo from "./components/HowTo";
 import useLocalStorage, { LS_KEYS } from "./hooks/useLocalStorage";
 import "./styles/App.scss";
 
@@ -115,9 +116,9 @@ const App = (): ReactElement => {
 
     const renderDisplay = (): ReactNode => {
         if (isPending) {
-            return <div className="board-word">Messing up the lights~</div>;
+            return <h2 className="board-word">Messing up the lights~</h2>;
         } else if (hasWon) {
-            return <div className="board-word">Congratulations!</div>;
+            return <h2 className="board-word">Congratulations!</h2>;
         }
         return (
             <section data-testid="board" className="board">
@@ -148,6 +149,7 @@ const App = (): ReactElement => {
                 </span>
             </h1>
             {renderDisplay()}
+            <HowTo />
         </main>
     );
 };
