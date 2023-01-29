@@ -10,7 +10,7 @@
 // TODO: Implement themes in future
 // ? Idea: Color changes when "Out" is clicked
 $sub-color: orange; // Just the color of "Light"
-$main-color: rgb(18 231 231); // Color of "Out" and the lights
+$main-color: var(--main-color); // Color of "Out" and the lights
 
 @mixin text-shadow($color) {
     text-shadow:
@@ -43,6 +43,13 @@ $white: white;
 .app-blue {
     color: $main-color;
     @include text-shadow($main-color);
+
+    cursor: pointer;
+
+    // Prevent text selection
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 @keyframes flicker {

@@ -4,17 +4,28 @@ import {
     useTransition,
     useCallback,
     ReactNode,
-    ReactElement
+    ReactElement,
+    MouseEvent
 } from "react";
 import Cell from "./components/Cell";
+import useLocalStorage, { LS_KEYS } from "./hooks/useLocalStorage";
 import "./styles/App.scss";
 
 // ? Use const value to avoid typos
 const SIZE = 5;
 const INITIAL_LIGHT_PROB = 0.25;
+const MAIN_COLORS = [
+    "rgb(18 231 231)",    // Teal
+    "rgb(255, 255, 153)", // Yellow
+    "rgb(255, 153, 153)", // Pink
+    "rgb(153, 255, 153)", // Light Green
+    "rgb(153, 153, 255)", // Purple
+    "rgb(255, 153, 255)"  // Magenta
+]
 
 // ? Took out everything from Board.jsx - unnecessary nesting
 const App = (): ReactElement => {
+    const [colorIndex, setColorIndex] = useLocalStorage(LS_KEYS.COLOR_INDEX, 0);
     const [grid, setGrid] = useState<boolean[][]>([]);
     const [hasWon, setHasWon] = useState<boolean>(false);
 
@@ -25,6 +36,10 @@ const App = (): ReactElement => {
         // TODO: Make it a state in future
         document.documentElement.style.setProperty("--size", SIZE.toString());
     }, []);
+
+    useEffect(() => {
+        document.documentElement.style.setProperty("--main-color", MAIN_COLORS[colorIndex]);
+    }, [colorIndex]);
 
     useEffect(() => {
         // Switch hasWon back to false to restart game
@@ -50,6 +65,18 @@ const App = (): ReactElement => {
             setHasWon(checkWin);
         }
     }, [grid, hasWon]);
+
+    // To change the main color of the app
+    const rotateTheme = (e: MouseEvent<HTMLSpanElement>) => {
+        e.preventDefault();
+        const lastIdx = MAIN_COLORS.length - 1;
+        if (e.type === 'click') { // Left Click
+            setColorIndex((prevIdx: number) => prevIdx < lastIdx ? prevIdx + 1 : 0);
+        } else if (e.type === 'contextmenu') { // Right click
+            setColorIndex((prevIdx: number) => prevIdx > 0 ? prevIdx - 1 : lastIdx);
+        }
+        return false;
+    }
 
     // To toggle a light and its neighbors
     // ? Set grid state once instead of setting for every cell toggled
@@ -104,7 +131,7 @@ const App = (): ReactElement => {
         <main className="app">
             <h1 data-testid="title" className="app-h1">
                 <span className="app-orange">LIGHTS</span>{" "}
-                <span className="app-blue">OUT</span>
+                <span className="app-blue" onClick={rotateTheme} onContextMenu={rotateTheme}>OUT</span>
             </h1>
             {renderDisplay()}
         </main>
