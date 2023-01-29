@@ -2,63 +2,113 @@
 Objective: To improve a project with techniques learnt during the workshop
 
 ## Main improvements
-1. Converting from ![image][Webpack badge] to ![image][Vite badge] for faster and more efficient build
+### 1. Convert from ![image][Webpack badge] to ![image][Vite badge] for faster and more efficient build
 
 [Webpack badge]: https://img.shields.io/badge/Webpack-1C78C0?style=for-the-badge&logo=webpack&logoColor=*ED5FA
 [Vite badge]: https://img.shields.io/badge/Vite-6905F4?style=for-the-badge&logo=vite&logoColor=F0DB4F
 
-2. Converting from ![image][JS badge] to ![image][TS badge] for better maintanability
+### 2. Convert from ![image][JS badge] to ![image][TS badge] for better maintanability
 
 [JS badge]: https://img.shields.io/badge/Javascript-323330?style=for-the-badge&logo=javascript&logoColor=F0DB4F
 [TS badge]: https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 
-3. Using ![image][Sass badge] for dynamic styling
-   * Allow saving of variables and mixin, preventing duplicate of codes
-    ``` scss
-    $subColor: orange; // Just the color of "Light"
-    $mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
+### 3. Use ![image][Sass badge] for dynamic styling
+* Allow saving of variables and mixin, preventing duplicate of codes
+``` scss
+$subColor: orange; // Just the color of "Light"
+$mainColor: rgb(18, 231, 231); // Color of "Out" and the lights
 
-    @mixin textShadow($color) {
-        text-shadow:
-            0 0 42px $color,
-            0 0 82px $color,
-            0 0 92px $color,
-            0 0 102px $color,
-            0 0 151px $color;
-    }
+@mixin textShadow($color) {
+    text-shadow:
+        0 0 42px $color,
+        0 0 82px $color,
+        0 0 92px $color,
+        0 0 102px $color,
+        0 0 151px $color;
+}
 
-    $black: rgb(55, 55, 55);
-    $white: white;
-    ```
+$black: rgb(55, 55, 55);
+$white: white;
+```
 
 [Sass badge]: https://img.shields.io/badge/SASS-CC6699?style=for-the-badge&logo=sass&logoColor=white
 
-4. Restructuring of files
-   * Add folders for better maintanability in the future (i.e components,styles,tests)
+### 4. File restructure
+* Add folders for better maintanability in the future (i.e components,styles,tests)
 
-5. Usage of hooks
-   * useTransition for grid for unblocking the UI when the grid is huge
-    ``` typescript
-    startTransition(() => {
-        const newGrid = Array.from({ length: SIZE }).map(
-            () => Array.from({ length: SIZE }).map(
-                () => Math.random() < INITIAL_LIGHT_PROB
-            )
-        );
-        setGrid(newGrid);
+### 5. Usage of hooks
+* useTransition for grid for unblocking the UI when the grid is huge
+``` typescript
+startTransition(() => {
+    const newGrid = Array.from({ length: SIZE }).map(
+        () => Array.from({ length: SIZE }).map(
+            () => Math.random() < INITIAL_LIGHT_PROB
+        )
+    );
+    setGrid(newGrid);
+});
+```
+* Memoized Cell component so each instance will only re-render when it or its neighbour is clicked
+``` typescript
+export default memo(Cell);
+```
+* useCallback for toggleLight so it wont re-rendered everytime, leading to Cell component being re-rendered
+``` typescript
+const toggleLight = useCallback((row: number, col: number) => {
+  // Truncated code
+  // ...
+}, [setGrid]);
+```
+
+### 6. Custom hook with Local Storage for persisting state
+``` typescript
+export default function useLocalStorage<T>(key: string, initialValue: T) {
+    const [storedValue, setStoredValue] = useState<T>(initialValue);
+
+    // Set subsequent values to LocalStorage
+    const setValue = useCallback(
+        (value: T | ((val: T) => T)) => {
+            // Allow value to be a function so we have same API as useState
+            const valueToStore =
+                value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window?.localStorage.setItem(key, JSON.stringify(valueToStore));
+        },
+        [storedValue, key]
+    );
+
+    // Set initial value from LocalStorage if any
+    useEffect(() => {
+        const value = window?.localStorage.getItem(key);
+        setValue(value ? JSON.parse(value) : initialValue);
+    }, [initialValue, key, setValue]);
+
+    return [storedValue, setValue] as const;
+}
+```
+
+### 7. Tests
+* Unit test
+``` typescript
+describe("App test", () => {
+    beforeEach(() => {
+        render(<App />);
     });
-    ```
-   * Memoized Cell component so each instance will only re-render when it or its neighbour is clicked
-    ``` typescript
-    export default memo(Cell);
-    ```
-   * useCallback for toggleLight so it wont re-rendered everytime, leading to Cell component being re-rendered
-    ``` typescript
-    const toggleLight = useCallback((row: number, col: number) => {
-      // Truncated code
-      // ...
-    }, [setGrid]);
-    ```
+
+    test("Should display title", () => {
+        const title = screen.getByTestId("title");
+        expect(title.textContent).toEqual("LIGHTS OUT");
+    });
+
+    test("Should change Cell class on click", () => {
+        const cell = screen.getByTestId("board").firstElementChild;
+        const beforeClass = cell?.className;
+        if (cell) fireEvent.click(cell);
+        const afterClass = cell?.className;
+        expect(beforeClass).not.toEqual(afterClass);
+    });
+});
+```
 
 ---
 
