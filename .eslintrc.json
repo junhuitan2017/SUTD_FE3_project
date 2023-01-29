@@ -26,7 +26,10 @@
         "react",
         "@typescript-eslint"
     ],
-    "rules": {},
+    "rules": {
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-argument": "off"
+    },
     "settings": {
         "react": {
             "version": "detect"
