@@ -82,6 +82,7 @@ $white: white;
     max-width: 90%;
     max-height: 70vh;
     overflow: auto;
+
     /* hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -129,12 +130,13 @@ $white: white;
 .howto {
     // Box CSS
     @include glow-box;
+
     max-width: 90%;
-    margin: auto;
     padding: 10px 20px;
-    color: $white;
+    margin: auto;
     
     // Text CSS
     font-family: 'Bungee Hairline', cursive;
+    color: $white;
     letter-spacing: -1px;
 }
