@@ -12,8 +12,8 @@ const HowTo = (): ReactElement => {
                     When you click on a light, it will toggle on/off along with
                     its 4 neighbours (N,S,E,W)
                     <br />
-                    When you are bored, press &quot;OUT&quot;
-                    (It will change color)
+                    When you are bored, press &quot;OUT&quot; (It will change
+                    color)
                 </p>
             </article>
         </section>
