@@ -13,6 +13,7 @@ const HowTo = (): ReactElement => {
                     its 4 neighbours (N,S,E,W)
                     <br />
                     When you are bored, press &quot;OUT&quot;
+                    (It will change color)
                 </p>
             </article>
         </section>

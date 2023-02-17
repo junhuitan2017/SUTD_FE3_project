@@ -13,7 +13,7 @@ describe("App test", () => {
     });
 
     test("Should change Cell class on click", () => {
-        const cell = screen.getByTestId("board").firstElementChild;
+        const cell = screen.getByTestId("nothing").firstElementChild;
         const beforeClass = cell?.className;
         if (cell) fireEvent.click(cell);
         const afterClass = cell?.className;
